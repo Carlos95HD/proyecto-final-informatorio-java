@@ -38,7 +38,14 @@ public class Usuario {
     private String pais;
     @NotBlank
     private String tipo;
+    private Boolean estado = true;
 
+    public Boolean getEstado() {
+        return estado;
+    }
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
     public Long getId() {
         return id;
     }
@@ -102,8 +109,8 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario [apellido=" + apellido + ", ciudad=" + ciudad + ", email=" + email + ", fechaDeCreacion="
-                + fechaDeCreacion + ", id=" + id + ", nombre=" + nombre + ", pais=" + pais + ", password=" + password
-                + ", provincia=" + provincia + ", tipo=" + tipo + "]";
+        return "Usuario [apellido=" + apellido + ", ciudad=" + ciudad + ", email=" + email + ", estado=" + estado
+                + ", fechaDeCreacion=" + fechaDeCreacion + ", id=" + id + ", nombre=" + nombre + ", pais=" + pais
+                + ", password=" + password + ", provincia=" + provincia + ", tipo=" + tipo + "]";
     }
 }
