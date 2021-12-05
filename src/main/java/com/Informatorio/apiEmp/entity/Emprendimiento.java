@@ -1,12 +1,18 @@
 package com.Informatorio.apiEmp.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -20,10 +26,29 @@ public class Emprendimiento {
     private String contenido;
     @CreationTimestamp
     private LocalDateTime fechaDeCreacion;
-    private Float objetivo;
+    private BigDecimal objetivo;
     private Boolean publicado;
     private String url;
-    private ArrayList<String> tags;
+    private ArrayList<String> tags = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonProperty(access = Access.WRITE_ONLY)
+    private Usuario usuario;
+
+    public Emprendimiento () {
+    }
+    public Emprendimiento(Long id, String nombre, String descripcion, String contenido, LocalDateTime fechaDeCreacion,
+    BigDecimal objetivo, Boolean publicado, String url, ArrayList<String> tags, Usuario usuario) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.contenido = contenido;
+        this.fechaDeCreacion = fechaDeCreacion;
+        this.objetivo = objetivo;
+        this.publicado = publicado;
+        this.url = url;
+        this.tags = tags;
+        this.usuario = usuario;
+    }
 
     public Long getId() {
         return id;
@@ -55,10 +80,10 @@ public class Emprendimiento {
     public void setFechaDeCreacion(LocalDateTime fechaDeCreacion) {
         this.fechaDeCreacion = fechaDeCreacion;
     }
-    public Float getObjetivo() {
+    public BigDecimal getObjetivo() {
         return objetivo;
     }
-    public void setObjetivo(Float objetivo) {
+    public void setObjetivo(BigDecimal objetivo) {
         this.objetivo = objetivo;
     }
     public Boolean getPublicado() {
@@ -79,11 +104,27 @@ public class Emprendimiento {
     public void setTags(ArrayList<String> tags) {
         this.tags = tags;
     }
+    public String obtenerTagsString() {
+        String tagsString = "";
+        for (String tag : tags) {
+            tagsString += tag.toLowerCase() + ",";
+        }
+
+        return tagsString;
+    }
+    public void ObtenerTagsString() {
+    }
+    public Usuario getUsuario() {
+        return usuario;
+    }
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     @Override
     public String toString() {
         return "Emprendimiento [contenido=" + contenido + ", descripcion=" + descripcion + ", fechaDeCreacion="
                 + fechaDeCreacion + ", id=" + id + ", nombre=" + nombre + ", objetivo=" + objetivo + ", publicado="
-                + publicado + ", tags=" + tags + ", url=" + url + "]";
+                + publicado + ", url=" + url + ", usuario=" + usuario + "]";
     }
 }

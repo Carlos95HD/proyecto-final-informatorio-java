@@ -1,15 +1,20 @@
 package com.Informatorio.apiEmp.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.persistence.CascadeType;
 
+import com.Informatorio.apiEmp.dto.UserTypesEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -36,9 +41,11 @@ public class Usuario {
     private String ciudad;
     private String provincia;
     private String pais;
-    @NotBlank
-    private String tipo;
-
+    private UserTypesEnum tipoUsuario;
+    @OneToMany(mappedBy = "usuario", cascade= CascadeType.ALL, orphanRemoval = true)
+    @JsonProperty(access = Access.WRITE_ONLY)
+    private List<Emprendimiento> emprendimientos = new ArrayList<>();
+    
     public Long getId() {
         return id;
     }
@@ -93,17 +100,23 @@ public class Usuario {
     public void setPais(String pais) {
         this.pais = pais;
     }
-    public String getTipo() {
-        return tipo;
+    public UserTypesEnum getTipoUsuario() {
+        return tipoUsuario;
     }
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipoUsuario(UserTypesEnum tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
-
+    public List<Emprendimiento> getEmprendimientos() {
+        return emprendimientos;
+    }
+    public void setEmprendimientos(List<Emprendimiento> emprendimiento) {
+        this.emprendimientos = emprendimiento;
+    }
     @Override
     public String toString() {
-        return "Usuario [apellido=" + apellido + ", ciudad=" + ciudad + ", email=" + email + ", fechaDeCreacion="
-                + fechaDeCreacion + ", id=" + id + ", nombre=" + nombre + ", pais=" + pais + ", password=" + password
-                + ", provincia=" + provincia + ", tipo=" + tipo + "]";
+        return "Usuario [apellido=" + apellido + ", ciudad=" + ciudad + ", email=" + email + ", emprendimientos="
+                + emprendimientos + ", fechaDeCreacion=" + fechaDeCreacion + ", id=" + id + ", nombre=" + nombre
+                + ", pais=" + pais + ", password=" + password + ", provincia=" + provincia + ", tipoUsuario="
+                + tipoUsuario + "]";
     }
 }
