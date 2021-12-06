@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -15,7 +17,9 @@ public class Voto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String generadoDesde;
-    private String usuario;
+    private String username;
+    @JsonIgnore
+    private Long usernameId;
     @CreationTimestamp
     private LocalDateTime fechaDeCreacion;
 
@@ -31,11 +35,17 @@ public class Voto {
     public void setGeneradoDesde(String generadoDesde) {
         this.generadoDesde = generadoDesde;
     }
-    public String getUsuario() {
-        return usuario;
+    public String getUsername() {
+        return username;
     }
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUsername(Usuario username) {
+        this.username = username.getEmail();
+    }
+    public Long getUsernameId() {
+        return usernameId;
+    }
+    public void setUsernameId(Long usernameId) {
+        this.usernameId = usernameId;
     }
     public LocalDateTime getFechaDeCreacion() {
         return fechaDeCreacion;
@@ -46,6 +56,6 @@ public class Voto {
     @Override
     public String toString() {
         return "Voto [fechaDeCreacion=" + fechaDeCreacion + ", generadoDesde=" + generadoDesde + ", id=" + id
-                + ", usuario=" + usuario + "]";
+                + ", usuario=" + username + "]";
     }
 }

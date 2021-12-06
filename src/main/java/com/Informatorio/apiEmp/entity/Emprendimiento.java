@@ -3,14 +3,18 @@ package com.Informatorio.apiEmp.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+// import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -33,11 +37,17 @@ public class Emprendimiento {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonProperty(access = Access.WRITE_ONLY)
     private Usuario usuario;
+    // @JsonIgnore
+    private Integer contadorVotos = 0;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Evento> eventos;
 
     public Emprendimiento () {
     }
     public Emprendimiento(Long id, String nombre, String descripcion, String contenido, LocalDateTime fechaDeCreacion,
-    BigDecimal objetivo, Boolean publicado, String url, ArrayList<String> tags, Usuario usuario) {
+            BigDecimal objetivo, Boolean publicado, String url, ArrayList<String> tags, Usuario usuario,
+            Integer contadorVotos, List<Evento> eventos) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -48,8 +58,9 @@ public class Emprendimiento {
         this.url = url;
         this.tags = tags;
         this.usuario = usuario;
+        this.contadorVotos = contadorVotos;
+        this.eventos = eventos;
     }
-
     public Long getId() {
         return id;
     }
@@ -109,7 +120,6 @@ public class Emprendimiento {
         for (String tag : tags) {
             tagsString += tag.toLowerCase() + ",";
         }
-
         return tagsString;
     }
     public void ObtenerTagsString() {
@@ -121,6 +131,15 @@ public class Emprendimiento {
         this.usuario = usuario;
     }
 
+    public Integer getContadorVotos() {
+        return contadorVotos;
+    }
+    public void setContadorVotos(Integer contadorVotos) {
+        this.contadorVotos = contadorVotos;
+    }
+    public void sumarVotos() {
+        this.contadorVotos += 1;
+    }
     @Override
     public String toString() {
         return "Emprendimiento [contenido=" + contenido + ", descripcion=" + descripcion + ", fechaDeCreacion="
