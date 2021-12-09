@@ -11,10 +11,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-// import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -37,30 +39,16 @@ public class Emprendimiento {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonProperty(access = Access.WRITE_ONLY)
     private Usuario usuario;
-    // @JsonIgnore
+    @JsonIgnore
     private Integer contadorVotos = 0;
+    @JoinTable(
+        name = "events_emprendimientos",
+        joinColumns = {@JoinColumn(name = "fk_emprendimientos",nullable = false)},
+        inverseJoinColumns = {@JoinColumn(name = "fk_eventos",nullable = false)})
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private List<Evento> eventos;
+    private List<Evento> eventos = new ArrayList<>();
 
-    public Emprendimiento () {
-    }
-    public Emprendimiento(Long id, String nombre, String descripcion, String contenido, LocalDateTime fechaDeCreacion,
-            BigDecimal objetivo, Boolean publicado, String url, ArrayList<String> tags, Usuario usuario,
-            Integer contadorVotos, List<Evento> eventos) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.contenido = contenido;
-        this.fechaDeCreacion = fechaDeCreacion;
-        this.objetivo = objetivo;
-        this.publicado = publicado;
-        this.url = url;
-        this.tags = tags;
-        this.usuario = usuario;
-        this.contadorVotos = contadorVotos;
-        this.eventos = eventos;
-    }
     public Long getId() {
         return id;
     }
@@ -140,10 +128,18 @@ public class Emprendimiento {
     public void sumarVotos() {
         this.contadorVotos += 1;
     }
+    public List<Evento> getEventos() {
+        return eventos;
+    }
+    public void setEventos(List<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
     @Override
     public String toString() {
-        return "Emprendimiento [contenido=" + contenido + ", descripcion=" + descripcion + ", fechaDeCreacion="
-                + fechaDeCreacion + ", id=" + id + ", nombre=" + nombre + ", objetivo=" + objetivo + ", publicado="
-                + publicado + ", url=" + url + ", usuario=" + usuario + "]";
+        return "Emprendimiento [contadorVotos=" + contadorVotos + ", contenido=" + contenido + ", descripcion="
+                + descripcion + ", eventos=" + eventos + ", fechaDeCreacion=" + fechaDeCreacion + ", id=" + id
+                + ", nombre=" + nombre + ", objetivo=" + objetivo + ", publicado=" + publicado + ", tags=" + tags
+                + ", url=" + url + ", usuario=" + usuario + "]";
     }
 }

@@ -1,6 +1,7 @@
 package com.Informatorio.apiEmp.entity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OrderBy;
-import javax.validation.constraints.NotNull;
 
 import com.Informatorio.apiEmp.dto.EventoEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,24 +28,10 @@ public class Evento {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaDeCierre;
     private EventoEnum estadoEvento;
-    @ManyToMany(mappedBy = "eventos")
-    @JsonIgnoreProperties({ "id","tags" })
     @OrderBy("contadorVotos DESC")
-    private List<Emprendimiento> emprendimientos;
-
-    public Evento(){
-    }
-    public Evento(Long id, String detalles, Date fechaDeCreacion, Date fechaDeCierre, @NotNull EventoEnum estadoEvento,
-            List<Emprendimiento> emprendimientos, BigDecimal premio) {
-        this.id = id;
-        this.detalles = detalles;
-        this.fechaDeCreacion = fechaDeCreacion;
-        this.fechaDeCierre = fechaDeCierre;
-        this.estadoEvento = estadoEvento;
-        this.emprendimientos = emprendimientos;
-        this.premio = premio;
-    }
-
+    @JsonIgnoreProperties({"descripcion","contenido","fechaDeCreacion","objetivo","publicado","tags","url" })
+    @ManyToMany( mappedBy = "eventos")
+    private List<Emprendimiento> emprendimientos = new ArrayList<>();
     private BigDecimal premio;
 
     public Long getId() {
@@ -78,6 +64,16 @@ public class Evento {
     public void setEstadoEvento(EventoEnum estadoEvento) {
         this.estadoEvento = estadoEvento;
     }
+    public List<Emprendimiento> getEmprendimientos() {
+        return emprendimientos;
+    }
+    public void setEmprendimientos(List<Emprendimiento> emprendimientos) {
+        this.emprendimientos = emprendimientos;
+    }
+    public void addEmprendimiento(Emprendimiento emprendimiento) {
+        this.emprendimientos.add(emprendimiento);
+        emprendimiento.getEventos().add(this);
+    }
     public BigDecimal getPremio() {
         return premio;
     }
@@ -86,8 +82,8 @@ public class Evento {
     }
     @Override
     public String toString() {
-        return "Evento [detalles=" + detalles + ", estadoEvento=" + estadoEvento + ", fechaDeCierre=" + fechaDeCierre
-                + ", fechaDeCreacion=" + fechaDeCreacion + ", id=" + id + ", premio=" + premio + ", suscriptores="
-                + "]";
+        return "Evento [detalles=" + detalles + ", emprendimientos=" + emprendimientos + ", estadoEvento="
+                + estadoEvento + ", fechaDeCierre=" + fechaDeCierre + ", fechaDeCreacion=" + fechaDeCreacion + ", id="
+                + id + ", premio=" + premio + "]";
     }
 }
