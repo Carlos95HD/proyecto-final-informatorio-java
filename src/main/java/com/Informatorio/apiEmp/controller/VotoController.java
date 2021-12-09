@@ -45,7 +45,7 @@ public class VotoController {
         @PathVariable("idEmpr") Long idEmpr,
         @RequestBody Voto voto){
             Usuario usuario = usuarioRepository.findById(id).get();
-            Emprendimiento emprendimiento = emprendimientoRepository.findById(id).get();
+            Emprendimiento emprendimiento = emprendimientoRepository.findById(idEmpr).get();
 
             voto.setUsername(usuario);
             voto.setUsernameId(usuario.getId());
