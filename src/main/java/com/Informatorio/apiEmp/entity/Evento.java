@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.PreRemove;
 
 import com.Informatorio.apiEmp.dto.EventoEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -27,7 +28,7 @@ public class Evento {
     private Date fechaDeCreacion;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaDeCierre;
-    private EventoEnum estadoEvento;
+    private EventoEnum estadoEvento = EventoEnum.ABIERTO;
     @OrderBy("contadorVotos DESC")
     @JsonIgnoreProperties({"descripcion","contenido","fechaDeCreacion","objetivo","publicado","tags","url" })
     @ManyToMany( mappedBy = "eventos")
@@ -73,6 +74,12 @@ public class Evento {
     public void addEmprendimiento(Emprendimiento emprendimiento) {
         this.emprendimientos.add(emprendimiento);
         emprendimiento.getEventos().add(this);
+    }
+    @PreRemove
+    public void removeEmprendimientos() {
+        for (Emprendimiento emprendimiento : emprendimientos) {
+            emprendimiento.getEventos().remove(this);
+        }
     }
     public BigDecimal getPremio() {
         return premio;
