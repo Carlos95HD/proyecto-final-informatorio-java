@@ -74,7 +74,7 @@ public class Usuario {
         return email;
     }
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
     }
     public String getPassword() {
         return password;

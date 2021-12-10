@@ -20,6 +20,7 @@ public class Voto {
     private String username;
     @JsonIgnore
     private Long usernameId;
+    private String emprendimientoVotado;
     @CreationTimestamp
     private LocalDateTime fechaDeCreacion;
 
@@ -47,6 +48,12 @@ public class Voto {
     public void setUsernameId(Long usernameId) {
         this.usernameId = usernameId;
     }
+    public String getEmprendimientoVotado() {
+        return emprendimientoVotado;
+    }
+    public void setEmprendimientoVotado(String emprendimientoVotado) {
+        this.emprendimientoVotado = emprendimientoVotado;
+    }
     public LocalDateTime getFechaDeCreacion() {
         return fechaDeCreacion;
     }
@@ -55,7 +62,8 @@ public class Voto {
     }
     @Override
     public String toString() {
-        return "Voto [fechaDeCreacion=" + fechaDeCreacion + ", generadoDesde=" + generadoDesde + ", id=" + id
-                + ", usuario=" + username + "]";
+        return "Voto [emprendimientoVotado=" + emprendimientoVotado + ", fechaDeCreacion=" + fechaDeCreacion
+                + ", generadoDesde=" + generadoDesde + ", id=" + id + ", username=" + username + ", usernameId="
+                + usernameId + "]";
     }
 }

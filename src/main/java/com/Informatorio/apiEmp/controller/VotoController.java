@@ -1,6 +1,9 @@
 package com.Informatorio.apiEmp.controller;
 
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.Informatorio.apiEmp.entity.Emprendimiento;
 import com.Informatorio.apiEmp.entity.Usuario;
 import com.Informatorio.apiEmp.entity.Voto;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "/voto")
@@ -35,8 +39,19 @@ public class VotoController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllUsuarios() {
-        return new ResponseEntity<>(votoRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> getVoto(
+        @RequestParam(required=false) String username) {
+            List<Usuario> usuarioExiste = usuarioRepository.findByEmail(username.toLowerCase());
+            if (usuarioExiste != null) {
+                    List<Voto> votoFiltrado = votoRepository.findAll()
+                    .stream()
+                    .filter( e -> e.getUsername()
+                    .equals(username))
+                    .collect(Collectors.toList());
+                return new ResponseEntity<>(votoFiltrado, HttpStatus.OK);
+            }
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("user/{id}/emprendimiento/{idEmpr}")
@@ -49,6 +64,7 @@ public class VotoController {
 
             voto.setUsername(usuario);
             voto.setUsernameId(usuario.getId());
+            voto.setEmprendimientoVotado(emprendimiento.getNombre());
             emprendimiento.sumarVotos();
 
             votoRepository.save(voto);

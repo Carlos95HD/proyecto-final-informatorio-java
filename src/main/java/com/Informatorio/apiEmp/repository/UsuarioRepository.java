@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
     List<Usuario> findByCiudad(@Param("ciudad") String ciudad );
     List<Usuario> findByFechaDeCreacionAfter(LocalDateTime fechaDeCreacion);
+    List<Usuario> findByEmail(String email);
 }
