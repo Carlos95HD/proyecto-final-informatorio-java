@@ -26,20 +26,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class EventoController {
 
     private EventoRepository eventoRepository;
-    // private UsuarioRepository usuarioRepository;
     private EmprendimientoRepository emprendimientoRepository;
 
     @Autowired
     public EventoController(EventoRepository eventoRepository, UsuarioRepository usuarioRepository,
             EmprendimientoRepository emprendimientoRepository) {
         this.eventoRepository = eventoRepository;
-        // this.usuarioRepository = usuarioRepository;
         this.emprendimientoRepository = emprendimientoRepository;
     }
 
-    @GetMapping("/ranking")
-    public ResponseEntity<?> getAllUsuarios() {
-        return new ResponseEntity<>(eventoRepository.findAll(), HttpStatus.OK);
+    @GetMapping("/{id}/ranking")
+    public ResponseEntity<?> getAllUsuarios(@PathVariable Long id) {
+        Evento ranking = eventoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("evento no encontrado"));
+        return new ResponseEntity<>(ranking, HttpStatus.OK);
     }
 
     @PostMapping
@@ -47,19 +46,21 @@ public class EventoController {
         return new ResponseEntity<>(eventoRepository.save(evento), HttpStatus.CREATED);
     }
 
-    // Suscripcion Evento
     @PostMapping("suscribe/{id}/empr/{idEmpr}")
     public ResponseEntity<?> suscripcion(
         @PathVariable("id") Long id,
         @PathVariable("idEmpr") Long idEmpr) {
 
-            Emprendimiento emprendimientoExistente = emprendimientoRepository.findById(idEmpr).orElseThrow(() -> new EntityNotFoundException("No existe emprendimiento"));
-            Evento eventoExistente = eventoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No existe evento"));
+            Emprendimiento emprendimientoExistente = emprendimientoRepository.findById(idEmpr)
+                .orElseThrow(() -> new EntityNotFoundException("No existe emprendimiento"));
+            Evento eventoExistente = eventoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No existe evento"));
 
-            eventoExistente.addEmprendimiento(emprendimientoExistente);
-            eventoRepository.save(eventoExistente);
-
-            return new ResponseEntity<>(HttpStatus.OK);
+            if (eventoRepository.findById(idEmpr).isPresent()) {
+                    eventoExistente.addEmprendimiento(emprendimientoExistente);
+                return new ResponseEntity<>(eventoRepository.save(eventoExistente),HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/{id}")

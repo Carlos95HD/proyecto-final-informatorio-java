@@ -94,7 +94,7 @@ public class EmprendimientoController {
             return new ResponseEntity<>(emprendimientoRepository.save(emprendimientoExistente), HttpStatus.CREATED);
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/usuarios/{id}/emprendimientos/{idEmp}")

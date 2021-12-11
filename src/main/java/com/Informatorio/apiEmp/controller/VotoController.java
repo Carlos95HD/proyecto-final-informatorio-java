@@ -40,7 +40,7 @@ public class VotoController {
 
     @GetMapping
     public ResponseEntity<?> getVoto(
-        @RequestParam(required=false) String username) {
+        @RequestParam String username) {
             List<Usuario> usuarioExiste = usuarioRepository.findByEmail(username.toLowerCase());
             if (usuarioExiste != null) {
                     List<Voto> votoFiltrado = votoRepository.findAll()
@@ -51,7 +51,7 @@ public class VotoController {
                 return new ResponseEntity<>(votoFiltrado, HttpStatus.OK);
             }
 
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("user/{id}/emprendimiento/{idEmpr}")
