@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,8 +34,14 @@ public class Emprendimiento {
     private BigDecimal objetivo;
     private Boolean publicado;
     private String url;
-    private ArrayList<String> tags = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "empredimiento_id",
+            joinColumns = @JoinColumn(name = "emprendimiento_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags = new ArrayList<>();
     @ManyToOne
+    @JsonIgnoreProperties({"id","fechaDeCreacion","provincia","ciudad","pais","email" })
     private Usuario owner;
     @JsonIgnore
     private Integer contadorVotos = 0;
@@ -94,18 +101,19 @@ public class Emprendimiento {
     public void setUrl(String url) {
         this.url = url;
     }
-    public ArrayList<String> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
-    public String obtenerTagsString() {
-        String tagsString = "";
-        for (String tag : tags) {
-            tagsString += tag.toLowerCase() + ",";
-        }
-        return tagsString;
+    public void agregarTag(Tag tag) {
+        tags.add(tag);
+        tag.getEmprendimientos().add(this);
+    }
+    public void removerTag(Tag tag) {
+        tags.remove(tag);
+        tag.getEmprendimientos().remove(null);
     }
     public void ObtenerTagsString() {
     }

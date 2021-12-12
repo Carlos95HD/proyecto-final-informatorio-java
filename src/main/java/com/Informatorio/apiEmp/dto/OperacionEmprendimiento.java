@@ -1,7 +1,7 @@
 package com.Informatorio.apiEmp.dto;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -16,6 +16,8 @@ public class OperacionEmprendimiento {
     private BigDecimal objetivo;
     private Boolean publicado;
     private String url;
+    private List<Long> tags;
+
     public String getNombre() {
         return nombre;
     }
@@ -52,18 +54,10 @@ public class OperacionEmprendimiento {
     public void setUrl(String url) {
         this.url = url;
     }
-    public ArrayList<String> getTags() {
+    public List<Long> getTags() {
         return tags;
     }
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(List<Long> tags) {
         this.tags = tags;
-    }
-    private ArrayList<String> tags = new ArrayList<>();
-
-    @Override
-    public String toString() {
-        return "OperacionEmprendimiento [contenido=" + contenido + ", descripcion=" + descripcion + ", idUsuario="
-                + ", nombre=" + nombre + ", objetivo=" + objetivo + ", publicado=" + publicado + ", tags="
-                + tags + ", url=" + url + "]";
     }
 }

@@ -50,15 +50,7 @@ public class EmprendimientoController {
     public ResponseEntity<?> getEmprendimentoByTags(
         @RequestParam(required=false) String tag,
         @RequestParam(required=false) Boolean publicado){
-
-        if (tag != null) {
-            List<Emprendimiento> emprendimientos = emprendimientoRepository.findAll()
-                .stream()
-                .filter( e -> e.obtenerTagsString().contains(tag.toLowerCase()))
-                .collect(Collectors.toList());
-
-            return new ResponseEntity<>(emprendimientos, HttpStatus.OK);
-        } else if (publicado != null){
+        if (publicado != null){
             List<Emprendimiento> emprendimientos = emprendimientoRepository.findAll()
                 .stream()
                 .filter( e -> e.getPublicado() == publicado)
