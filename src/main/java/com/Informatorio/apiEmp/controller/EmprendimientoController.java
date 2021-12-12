@@ -35,7 +35,7 @@ public class EmprendimientoController {
 
     @Autowired
     public EmprendimientoController(EmprendimientoService emprendimientoService,
-    EmprendimientoRepository emprendimientoRepository, UsuarioRepository usuarioRepository) {
+            EmprendimientoRepository emprendimientoRepository, UsuarioRepository usuarioRepository) {
         this.emprendimientoService = emprendimientoService;
         this.emprendimientoRepository = emprendimientoRepository;
         this.usuarioRepository = usuarioRepository;
@@ -48,14 +48,17 @@ public class EmprendimientoController {
 
     @RequestMapping(value = "/emprendimientos/search", method = RequestMethod.GET)
     public ResponseEntity<?> getEmprendimentoByTags(
-        @RequestParam(required=false) String tag,
-        @RequestParam(required=false) Boolean publicado){
-        if (publicado != null){
-            List<Emprendimiento> emprendimientos = emprendimientoRepository.findAll()
-                .stream()
-                .filter( e -> e.getPublicado() == publicado)
-                .collect(Collectors.toList());
+            @RequestParam(required = false) Long tag,
+            @RequestParam(required = false) Boolean publicado) {
 
+        if (tag != null) {
+            List<Emprendimiento> emprendimientos = emprendimientoRepository.findAll()
+                    .stream()
+                    .filter(e -> e.searchTag(tag))
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(emprendimientos, HttpStatus.OK);
+        } else if (publicado != null) {
+            List<Emprendimiento> emprendimientos = emprendimientoRepository.findByPublicado(publicado);
             return new ResponseEntity<>(emprendimientos, HttpStatus.OK);
         }
 
@@ -65,7 +68,8 @@ public class EmprendimientoController {
     @PostMapping("/usuarios/{id}/emprendimientos")
     public ResponseEntity<?> crearEmprendimiento(@PathVariable("id") Long id,
             @RequestBody @Valid OperacionEmprendimiento operacionEmprendimiento) {
-            return new ResponseEntity<>(emprendimientoService.crearEmprendimiento(operacionEmprendimiento, id), HttpStatus.CREATED);
+        return new ResponseEntity<>(emprendimientoService.crearEmprendimiento(operacionEmprendimiento, id),
+                HttpStatus.CREATED);
     }
 
     @PutMapping("/usuarios/{id}/emprendimientos/{idEmp}")

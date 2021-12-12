@@ -115,7 +115,14 @@ public class Emprendimiento {
         tags.remove(tag);
         tag.getEmprendimientos().remove(null);
     }
-    public void ObtenerTagsString() {
+    public boolean searchTag(Long id) {
+        Boolean existe = false;
+        for (Tag tag : tags) {
+            if (tag.getId() == id){
+                return existe = true;
+            };
+        }
+        return existe;
     }
     public Usuario getOwner() {
         return owner;
