@@ -42,7 +42,7 @@ public class Usuario {
     private String provincia;
     private String pais;
     private UserTypesEnum tipoUsuario;
-    @OneToMany(mappedBy = "usuario", cascade= CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", cascade= CascadeType.ALL, orphanRemoval = true)
     @JsonProperty(access = Access.WRITE_ONLY)
     private List<Emprendimiento> emprendimientos = new ArrayList<>();
     

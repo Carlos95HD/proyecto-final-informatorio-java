@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +17,6 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -36,9 +34,8 @@ public class Emprendimiento {
     private Boolean publicado;
     private String url;
     private ArrayList<String> tags = new ArrayList<>();
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonProperty(access = Access.WRITE_ONLY)
-    private Usuario usuario;
+    @ManyToOne
+    private Usuario owner;
     @JsonIgnore
     private Integer contadorVotos = 0;
     @JoinTable(
@@ -112,13 +109,12 @@ public class Emprendimiento {
     }
     public void ObtenerTagsString() {
     }
-    public Usuario getUsuario() {
-        return usuario;
+    public Usuario getOwner() {
+        return owner;
     }
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setOwner(Usuario usuario) {
+        this.owner = usuario;
     }
-
     public Integer getContadorVotos() {
         return contadorVotos;
     }
@@ -134,12 +130,11 @@ public class Emprendimiento {
     public void setEventos(List<Evento> eventos) {
         this.eventos = eventos;
     }
-
     @Override
     public String toString() {
         return "Emprendimiento [contadorVotos=" + contadorVotos + ", contenido=" + contenido + ", descripcion="
                 + descripcion + ", eventos=" + eventos + ", fechaDeCreacion=" + fechaDeCreacion + ", id=" + id
                 + ", nombre=" + nombre + ", objetivo=" + objetivo + ", publicado=" + publicado + ", tags=" + tags
-                + ", url=" + url + ", usuario=" + usuario + "]";
+                + ", url=" + url + ", usuario=" + owner + "]";
     }
 }

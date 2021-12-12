@@ -6,10 +6,12 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
+import com.Informatorio.apiEmp.dto.OperacionEmprendimiento;
 import com.Informatorio.apiEmp.entity.Emprendimiento;
 import com.Informatorio.apiEmp.entity.Usuario;
 import com.Informatorio.apiEmp.repository.EmprendimientoRepository;
 import com.Informatorio.apiEmp.repository.UsuarioRepository;
+import com.Informatorio.apiEmp.service.EmprendimientoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,12 +29,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class EmprendimientoController {
 
+    private final EmprendimientoService emprendimientoService;
     private EmprendimientoRepository emprendimientoRepository;
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    public EmprendimientoController(EmprendimientoRepository emprendimientoRepository,
-            UsuarioRepository usuarioRepository) {
+    public EmprendimientoController(EmprendimientoService emprendimientoService,
+    EmprendimientoRepository emprendimientoRepository, UsuarioRepository usuarioRepository) {
+        this.emprendimientoService = emprendimientoService;
         this.emprendimientoRepository = emprendimientoRepository;
         this.usuarioRepository = usuarioRepository;
     }
@@ -52,7 +56,7 @@ public class EmprendimientoController {
                 .stream()
                 .filter( e -> e.obtenerTagsString().contains(tag.toLowerCase()))
                 .collect(Collectors.toList());
-            // .filter( e -> e.getTags().contains(tag))
+
             return new ResponseEntity<>(emprendimientos, HttpStatus.OK);
         } else if (publicado != null){
             List<Emprendimiento> emprendimientos = emprendimientoRepository.findAll()
@@ -68,14 +72,8 @@ public class EmprendimientoController {
 
     @PostMapping("/usuarios/{id}/emprendimientos")
     public ResponseEntity<?> crearEmprendimiento(@PathVariable("id") Long id,
-            @RequestBody @Valid Emprendimiento emprendimiento) {
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No existe usuario"));
-        emprendimiento.setUsuario(usuario);
-        usuario.getEmprendimientos().add(emprendimiento);
-        usuarioRepository.save(usuario);
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+            @RequestBody @Valid OperacionEmprendimiento operacionEmprendimiento) {
+            return new ResponseEntity<>(emprendimientoService.crearEmprendimiento(operacionEmprendimiento, id), HttpStatus.CREATED);
     }
 
     @PutMapping("/usuarios/{id}/emprendimientos/{idEmp}")
@@ -88,9 +86,9 @@ public class EmprendimientoController {
         Emprendimiento emprendimientoExistente = emprendimientoRepository.findById(idEmp)
                 .orElseThrow(() -> new EntityNotFoundException("Emprendimiento no existe"));
 
-        if (emprendimientoExistente.getUsuario().getId() == id) {
+        if (emprendimientoExistente.getOwner().getId() == id) {
             emprendimientoExistente.setNombre(emprendimiento.getNombre());
-            emprendimientoExistente.setUsuario(usuarioExistente);
+            emprendimientoExistente.setOwner(usuarioExistente);
             return new ResponseEntity<>(emprendimientoRepository.save(emprendimientoExistente), HttpStatus.CREATED);
         }
 
@@ -104,7 +102,7 @@ public class EmprendimientoController {
         Emprendimiento emprendimientoExistente = emprendimientoRepository.findById(idEmp)
                 .orElseThrow(() -> new EntityNotFoundException("Emprendimiento no existe"));
 
-        if (emprendimientoExistente.getUsuario().getId() == id) {
+        if (emprendimientoExistente.getOwner().getId() == id) {
             emprendimientoRepository.deleteById(idEmp);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }
