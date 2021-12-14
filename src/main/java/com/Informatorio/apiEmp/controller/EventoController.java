@@ -56,7 +56,7 @@ public class EventoController {
             Evento eventoExistente = eventoRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No existe evento"));
 
-            if (eventoRepository.findById(idEmpr).isPresent()) {
+            if (!eventoRepository.findById(idEmpr).isPresent()) {
                     eventoExistente.addEmprendimiento(emprendimientoExistente);
                 return new ResponseEntity<>(eventoRepository.save(eventoExistente),HttpStatus.OK);
             }
