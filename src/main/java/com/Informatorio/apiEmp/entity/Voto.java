@@ -16,7 +16,7 @@ public class Voto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String generadoDesde;
+    private String generadoDesde = "";
     private String username;
     @JsonIgnore
     private Long usernameId;

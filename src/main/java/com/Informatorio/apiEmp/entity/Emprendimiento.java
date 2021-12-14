@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,14 +28,22 @@ public class Emprendimiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotEmpty(message = "Nombre no puede estar vacio")
     private String nombre;
+
+    @NotEmpty(message = "Descripción no puede estar vacio")
     private String descripcion;
     private String contenido;
+
     @CreationTimestamp
     private LocalDateTime fechaDeCreacion;
+
+    @NotNull
     private BigDecimal objetivo;
-    private Boolean publicado;
-    private String url;
+    private Boolean publicado = false;
+    private String url="";
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "empredimiento_id",
@@ -41,10 +51,12 @@ public class Emprendimiento {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags = new ArrayList<>();
     @ManyToOne
-    @JsonIgnoreProperties({"id","fechaDeCreacion","provincia","ciudad","pais","email" })
+    @JsonIgnoreProperties({"fechaDeCreacion","provincia","ciudad","pais","email" })
     private Usuario owner;
+
     @JsonIgnore
     private Integer contadorVotos = 0;
+
     @JoinTable(
         name = "events_emprendimientos",
         joinColumns = {@JoinColumn(name = "fk_emprendimientos",nullable = false)},
