@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
 public class EmprendimientoController {
 
     private final EmprendimientoService emprendimientoService;
@@ -61,7 +63,6 @@ public class EmprendimientoController {
             List<Emprendimiento> emprendimientos = emprendimientoRepository.findByPublicado(publicado);
             return new ResponseEntity<>(emprendimientos, HttpStatus.OK);
         }
-
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -84,10 +85,14 @@ public class EmprendimientoController {
 
         if (emprendimientoExistente.getOwner().getId() == id) {
             emprendimientoExistente.setNombre(emprendimiento.getNombre());
+            emprendimientoExistente.setContenido(emprendimiento.getContenido());
+            emprendimientoExistente.setDescripcion(emprendimiento.getDescripcion());
+            emprendimientoExistente.setObjetivo(emprendimiento.getObjetivo());
+            emprendimientoExistente.setPublicado(emprendimiento.getPublicado());
+            emprendimientoExistente.setUrl(emprendimiento.getUrl());
             emprendimientoExistente.setOwner(usuarioExistente);
             return new ResponseEntity<>(emprendimientoRepository.save(emprendimientoExistente), HttpStatus.CREATED);
         }
-
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -102,7 +107,6 @@ public class EmprendimientoController {
             emprendimientoRepository.deleteById(idEmp);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }
-
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

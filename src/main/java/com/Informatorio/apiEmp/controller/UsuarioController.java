@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +20,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "/usuarios")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT})
 public class UsuarioController {
 
     private UsuarioRepository usuarioRepository;
@@ -41,7 +44,6 @@ public class UsuarioController {
             } else if (creado != null) {
                 return new ResponseEntity<>(usuarioRepository.findByFechaDeCreacionAfter(creado.atStartOfDay()), HttpStatus.OK);
             }
-
             return new ResponseEntity<>(usuarioRepository.findAll(), HttpStatus.OK);
     }
 

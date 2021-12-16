@@ -50,7 +50,6 @@ public class VotoController {
                     .collect(Collectors.toList());
                 return new ResponseEntity<>(votoFiltrado, HttpStatus.OK);
             }
-
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -66,10 +65,8 @@ public class VotoController {
             voto.setUsernameId(usuario.getId());
             voto.setEmprendimientoVotado(emprendimiento.getNombre());
             emprendimiento.sumarVotos();
-
             votoRepository.save(voto);
             emprendimientoRepository.save(emprendimiento);
-
             return new ResponseEntity<>(HttpStatus.OK);
     }
 }
