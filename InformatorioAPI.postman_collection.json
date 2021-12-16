@@ -1,0 +1,698 @@
+{
+	"info": {
+		"_postman_id": "a0752559-33ab-441f-ae7a-a2d10d630c0c",
+		"name": "InformatorioAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Creacion de Usuarios",
+					"item": [
+						{
+							"name": "Usuario1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Juan\",\r\n    \"apellido\":\"Stanton\",\r\n    \"email\":\"nunc.sed@protonmail.com\",\r\n    \"password\":\"416243612\",\r\n    \"ciudad\":\"Resistencia\",\r\n    \"provincia\":\"Chaco\",\r\n    \"pais\":\"Argentina\",\r\n    \"tipoUsuario\":\"USUARIO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuarios",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Rama\",\r\n    \"apellido\":\"Potts\",\r\n    \"email\":\"curae.donec.tincidunt@google.org\",\r\n    \"password\":\"asjkxa2\",\r\n    \"ciudad\":\"Resistencia\",\r\n    \"provincia\":\"Chaco\",\r\n    \"pais\":\"Argentina\",\r\n    \"tipoUsuario\":\"USUARIO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuarios",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Marco\",\r\n    \"apellido\":\"House\",\r\n    \"email\":\"lectus.sit@google.org\",\r\n    \"password\":\"zxcas21\",\r\n    \"ciudad\":\"Fontana\",\r\n    \"provincia\":\"Chaco\",\r\n    \"pais\":\"Argentina\",\r\n    \"tipoUsuario\":\"USUARIO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuarios",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Jackson\",\r\n    \"apellido\":\"Willis\",\r\n    \"email\":\"in.nec@google.ca\",\r\n    \"password\":\"12xa21a\",\r\n    \"ciudad\":\"Saenz Peña\",\r\n    \"provincia\":\"Chaco\",\r\n    \"pais\":\"Argentina\",\r\n    \"tipoUsuario\":\"COLABORADOR\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuarios",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Usuario5",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Gary\",\r\n    \"apellido\":\"Rivera\",\r\n    \"email\":\"sociis@icloud.edu\",\r\n    \"password\":\"12xa21a\",\r\n    \"ciudad\":\"Barranqueras\",\r\n    \"provincia\":\"Chaco\",\r\n    \"pais\":\"Argentina\",\r\n    \"tipoUsuario\":\"COLABORADOR\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuarios",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Modificación de usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Bart\",\r\n    \"apellido\":\"Simspson\",\r\n    \"email\":\"Bart@gmail.com\",\r\n    \"password\":\"12axa\",\r\n    \"ciudad\":\"Corrientes\",\r\n    \"provincia\":\"Corrientes\",\r\n    \"pais\":\"Argentina\",\r\n    \"tipo\":\"OWNER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usuarios/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuarios",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios"
+							],
+							"query": [
+								{
+									"key": "ciudad",
+									"value": "resistencia",
+									"disabled": true
+								},
+								{
+									"key": "creado",
+									"value": "2021-12-15",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Usuario por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuarios/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Emprendimiento",
+			"item": [
+				{
+					"name": "Creación Emprendimientos",
+					"item": [
+						{
+							"name": "Emprendimiento1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Nisl Corporation\",\r\n    \"descripcion\":\"Contrary to popular belief, Lorem Ipsum\",\r\n    \"contenido\":\"It is a long established fact\",\r\n    \"objetivo\":100000,\r\n    \"publicado\": true,\r\n    \"url\":\"https://i.blogs.es/55d351/windows-11-nuevos-wallpapers-descargar-gratis-mexico/1366_2000.jpg\",\r\n    \"tags\":[1,2]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuarios/2/emprendimientos",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"2",
+										"emprendimientos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Emprendimiento2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Lorem Ecologic\",\r\n    \"descripcion\":\"Contrary to popular belief, Lorem Ipsum\",\r\n    \"contenido\":\"euismod enim. Etiam gravida molestie arcu. Sed eu nibh vulputate\",\r\n    \"objetivo\":300.000,\r\n    \"publicado\": false,\r\n    \"url\":\"https://wallpaperaccess.com/full/1667854.png\",\r\n    \"tags\":[1, 4, 5]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuarios/3/emprendimientos",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"3",
+										"emprendimientos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Emprendimiento3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Non LLP\",\r\n    \"descripcion\":\"purus ac tellus. Suspendisse sed dolor. Fusce mi lorem, vehicula\",\r\n    \"contenido\":\"libero est, congue a, aliquet vel, vulputate eu, odio. Phasellus\",\r\n    \"objetivo\":1000000,\r\n    \"publicado\": false,\r\n    \"url\":\"https://www.solofondos.com/wp-content/uploads/2016/03/screen-1-1.jpg\",\r\n    \"tags\":[2 , 3]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuarios/39/emprendimientos",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"39",
+										"emprendimientos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Emprendimiento4",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"TechV Erat\",\r\n    \"descripcion\":\"mattis semper, dui lectus rutrum urna, nec luctus felis purus\",\r\n    \"contenido\":\"natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\",\r\n    \"objetivo\":100000,\r\n    \"publicado\": true,\r\n    \"url\":\"https://i.pinimg.com/originals/9b/7e/71/9b7e71204aacec55977bfb55e3b5af7d.jpg\",\r\n    \"tags\":[1 , 3 ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuarios/38/emprendimientos",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"38",
+										"emprendimientos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Emprendimiento5",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\":\"Nisa Creative\",\r\n    \"descripcion\":\"Contrary to popular belief, Lorem Ipsum\",\r\n    \"contenido\":\"It is a long established fact\",\r\n    \"objetivo\":100000,\r\n    \"publicado\": false,\r\n    \"url\":\"https://wallpaperaccess.com/full/3998191.jpg\",\r\n    \"tags\":[2 , 4]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/usuarios/37/emprendimientos",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"usuarios",
+										"37",
+										"emprendimientos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Obtener Emprendimientos tag/publicado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/emprendimientos/search?publicado=true",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprendimientos",
+								"search"
+							],
+							"query": [
+								{
+									"key": "tag",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "publicado",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Emprendimientos All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/emprendimientos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"emprendimientos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Emprendimiento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Nisl Corporation Empre\",\r\n    \"descripcion\":\"Contrary to popular belief, Lorem Ipsum\",\r\n    \"contenido\":\"It is a long established fact\",\r\n    \"objetivo\":100000,\r\n    \"publicado\": false,\r\n    \"url\":\"https://i.blogs.es/55d351/windows-11-nuevos-wallpapers-descargar-gratis-mexico/1366_2000.jpg\",\r\n    \"tags\":[1]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usuarios/2/emprendimientos/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"2",
+								"emprendimientos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Emprendimiento",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuarios/2/emprendimientos/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"2",
+								"emprendimientos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Voto",
+			"item": [
+				{
+					"name": "Voto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"generadoDesde\":\"web\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/voto/user/2/emprendimiento/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"voto",
+								"user",
+								"2",
+								"emprendimiento",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filtrar voto por usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/voto?username=curae.donec.tincidunt@google.org",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"voto"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "curae.donec.tincidunt@google.org"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Evento",
+			"item": [
+				{
+					"name": "Creación de eventos",
+					"item": [
+						{
+							"name": "Evento",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"detalles\":\"Industry Event\",\r\n    \"fechaDeCierre\":\"2021-12-30\",\r\n    \"estadoEvento\":\"EN_CURSO\",\r\n    \"premio\":300000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/evento",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"evento"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Evento 2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"detalles\":\"Summer technology\",\r\n    \"fechaDeCierre\":\"2021-12-30\",\r\n    \"estadoEvento\":\"ABIERTO\",\r\n    \"premio\":300000\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/evento",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"evento"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "suscripción a evento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/evento/suscribe/2/empr/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"evento",
+								"suscribe",
+								"2",
+								"empr",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ranking de emprendimientos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/evento/1/ranking",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"evento",
+								"1",
+								"ranking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar evento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"detalles\":\"Technological Event 2021\",\r\n    \"fechaDeCierre\":\"2021-12-30\",\r\n    \"estadoEvento\":\"EN_CURSO\",\r\n    \"premio\":300000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/evento/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"evento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Evento",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/evento/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"evento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
