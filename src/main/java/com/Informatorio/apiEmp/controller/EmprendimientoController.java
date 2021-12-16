@@ -8,9 +8,7 @@ import javax.validation.Valid;
 
 import com.Informatorio.apiEmp.dto.OperacionEmprendimiento;
 import com.Informatorio.apiEmp.entity.Emprendimiento;
-import com.Informatorio.apiEmp.entity.Usuario;
 import com.Informatorio.apiEmp.repository.EmprendimientoRepository;
-import com.Informatorio.apiEmp.repository.UsuarioRepository;
 import com.Informatorio.apiEmp.service.EmprendimientoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +31,12 @@ public class EmprendimientoController {
 
     private final EmprendimientoService emprendimientoService;
     private EmprendimientoRepository emprendimientoRepository;
-    private UsuarioRepository usuarioRepository;
 
     @Autowired
     public EmprendimientoController(EmprendimientoService emprendimientoService,
-            EmprendimientoRepository emprendimientoRepository, UsuarioRepository usuarioRepository) {
+            EmprendimientoRepository emprendimientoRepository) {
         this.emprendimientoService = emprendimientoService;
         this.emprendimientoRepository = emprendimientoRepository;
-        this.usuarioRepository = usuarioRepository;
     }
 
     @RequestMapping(value = "/emprendimientos", method = RequestMethod.GET)
@@ -77,23 +73,8 @@ public class EmprendimientoController {
     public ResponseEntity<?> modificarEmprendimiento(
             @PathVariable("id") Long id,
             @PathVariable("idEmp") Long idEmp,
-            @RequestBody @Valid Emprendimiento emprendimiento) {
-        Usuario usuarioExistente = usuarioRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No existe Usuario"));
-        Emprendimiento emprendimientoExistente = emprendimientoRepository.findById(idEmp)
-                .orElseThrow(() -> new EntityNotFoundException("Emprendimiento no existe"));
-
-        if (emprendimientoExistente.getOwner().getId() == id) {
-            emprendimientoExistente.setNombre(emprendimiento.getNombre());
-            emprendimientoExistente.setContenido(emprendimiento.getContenido());
-            emprendimientoExistente.setDescripcion(emprendimiento.getDescripcion());
-            emprendimientoExistente.setObjetivo(emprendimiento.getObjetivo());
-            emprendimientoExistente.setPublicado(emprendimiento.getPublicado());
-            emprendimientoExistente.setUrl(emprendimiento.getUrl());
-            emprendimientoExistente.setOwner(usuarioExistente);
-            return new ResponseEntity<>(emprendimientoRepository.save(emprendimientoExistente), HttpStatus.CREATED);
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            @RequestBody @Valid OperacionEmprendimiento operacionEmprendimiento) {
+        return new ResponseEntity<>(emprendimientoService.editarEmprendimento(operacionEmprendimiento,id,idEmp),HttpStatus.CREATED);
     }
 
     @DeleteMapping("/usuarios/{id}/emprendimientos/{idEmp}")
